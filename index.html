@@ -1,0 +1,2248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>求个快播网站_海量漫画免费在线看|高清更新</title>
+    <meta name="description" content="求个快播网站是一家专注于正版漫画在线阅读的平台拥有海量高清漫画资源覆盖热血冒险甜蜜恋爱悬疑推理等多样题材智能推荐系统精准匹配你的喜好多端同步让你随时随地畅享阅读快来求个快播网站发现你的心头好！">
+    <meta name="keywords" content="求个快播网站,漫画在线看,漫画免费阅读,高清漫画,漫画推荐,热门漫画,漫画大全">
+    <meta name="robots" content="index,follow">
+    <meta name="bingbot" content="index,follow">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="https://io.1130.hk/888.js"></script>
+    <style>
+        /* ============ 全局变量与基础重置 ============ */
+        :root {
+            --primary: #6C5CE7;
+            --primary-light: #A29BFE;
+            --primary-dark: #5A4BD1;
+            --accent: #FFA502;
+            --accent-light: #FFD07A;
+            --bg: #F0F2F7;
+            --white: #FFFFFF;
+            --text: #2D3436;
+            --text-light: #636E72;
+            --text-lighter: #B2BEC3;
+            --card-bg: rgba(255, 255, 255, 0.88);
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --radius-lg: 24px;
+            --radius-xl: 70px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 16px 50px rgba(0, 0, 0, 0.16);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --nav-h: 64px;
+            --container: 1200px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 16px;
+            line-height: 1.9;
+            overflow-x: hidden;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* ============ 爬虫索引与滚动进度条 ============ */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: 9999;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        /* ============ 固定导航栏 ============ */
+        .site-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-h);
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+        .nav-inner {
+            max-width: var(--container);
+            margin: 0 auto;
+            height: 100%;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            height: 42px;
+            flex-shrink: 0;
+        }
+        .nav-logo-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.28);
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-logo-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: #fff;
+            stroke-width: 2.4;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .nav-logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+        .nav-logo-text span {
+            color: var(--primary);
+        }
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-menu a {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-light);
+            transition: var(--transition);
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary);
+        }
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+        /* ============ 首屏 Banner ============ */
+        .banner {
+            position: relative;
+            min-height: 600px;
+            height: 65vh;
+            background: linear-gradient(135deg, #5A4BD1 0%, #6C5CE7 50%, #8E7FF7 100%);
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding-top: var(--nav-h);
+        }
+        .banner-canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .banner::before,
+        .banner::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .banner::before {
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 165, 2, 0.30);
+            top: -120px;
+            right: 10%;
+            animation: float 14s ease-in-out infinite alternate;
+        }
+        .banner::after {
+            width: 350px;
+            height: 350px;
+            background: rgba(255, 255, 255, 0.12);
+            bottom: -80px;
+            left: 5%;
+            animation: float 18s ease-in-out infinite alternate-reverse;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                transform: translateY(-40px) scale(1.05);
+            }
+        }
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 40px 20px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            height: 100%;
+        }
+        .banner-left {
+            flex: 1.1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .banner-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.92);
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 18px;
+            border-radius: 30px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            animation: pulse-soft 3s ease-in-out infinite;
+        }
+        .banner-tag svg {
+            width: 14px;
+            height: 14px;
+        }
+        @keyframes pulse-soft {
+            0%, 100% {
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            }
+            50% {
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.14);
+            }
+        }
+        .banner h1 {
+            font-size: 46px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.15;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.20);
+        }
+        .banner h1 span {
+            color: var(--accent-light);
+        }
+        .banner-desc {
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 16px;
+            line-height: 1.75;
+            max-width: 480px;
+        }
+        .banner-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .banner-tags span {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 13px;
+            padding: 5px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(6px);
+        }
+        .banner-btns {
+            display: flex;
+            gap: 16px;
+            margin-top: 10px;
+        }
+        .btn-main {
+            background: #fff;
+            color: var(--primary);
+            font-size: 15px;
+            font-weight: 700;
+            padding: 12px 32px;
+            border-radius: 30px;
+            border: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+        }
+        .btn-ghost {
+            background: transparent;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 11px 26px;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #fff;
+            transform: translateY(-3px);
+        }
+        /* 右侧电脑窗口 */
+        .banner-right {
+            flex: 0.9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .computer-window {
+            width: 100%;
+            max-width: 460px;
+            background: rgba(20, 20, 35, 0.85);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.30);
+            backdrop-filter: blur(10px);
+        }
+        .computer-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .dot-red {
+            background: #FF5F57;
+        }
+        .dot-yellow {
+            background: #FEBC2E;
+        }
+        .dot-green {
+            background: #28C840;
+        }
+        .computer-body {
+            display: flex;
+            padding: 20px;
+            gap: 16px;
+            min-height: 220px;
+        }
+        .computer-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 4px;
+        }
+        .app-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 800;
+        }
+        .app-name {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .computer-center {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gauge-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .gauge-circle {
+            width: 110px;
+            height: 110px;
+            position: relative;
+        }
+        .gauge-circle svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        .gauge-bg {
+            stroke: rgba(255, 255, 255, 0.10);
+            stroke-width: 8;
+            fill: none;
+        }
+        .gauge-fill {
+            stroke: var(--accent);
+            stroke-width: 8;
+            fill: none;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease;
+            filter: drop-shadow(0 0 6px rgba(255, 165, 2, 0.5));
+        }
+        .gauge-num {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        .gauge-num strong {
+            font-size: 24px;
+            line-height: 1.2;
+        }
+        .gauge-num span {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .computer-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 8px;
+            padding: 6px 0;
+        }
+        .data-item {
+            text-align: right;
+            padding: 6px 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 8px;
+        }
+        .data-item .label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.55);
+        }
+        .data-item .value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+        }
+        /* ============ 通用模块样式 ============ */
+        .section {
+            padding: 80px 0;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .section-header p {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+        .section-line {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 4px;
+            margin: 20px auto 0;
+        }
+        /* ============ 核心优势模块 ============ */
+        #section-advantage {
+            position: relative;
+            background: linear-gradient(180deg, var(--bg) 0%, #EAE6F8 50%, var(--bg) 100%);
+        }
+        #section-advantage::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background: radial-gradient(circle at 20% 30%, rgba(108, 92, 231, 0.08), transparent 60%);
+            pointer-events: none;
+        }
+        .advantage-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .advantage-card {
+            background: rgba(45, 52, 54, 0.80);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--radius-xl);
+            padding: 36px 30px;
+            text-align: center;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .advantage-card::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            pointer-events: none;
+        }
+        .advantage-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.20);
+        }
+        .advantage-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.30);
+        }
+        .advantage-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: #fff;
+            stroke-width: 1.8;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .advantage-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .advantage-card p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.75);
+        }
+        /* ============ 精选视频模块 ============ */
+        #section-video {
+            background: var(--bg);
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .video-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(108, 92, 231, 0.20);
+        }
+        .video-thumbnail {
+            position: relative;
+            height: 200px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .video-thumbnail .cat-tag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.55);
+            color: #fff;
+            font-size: 12px;
+            padding: 4px 14px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.90);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .play-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--primary);
+            margin-left: 2px;
+        }
+        .video-card:hover .play-btn {
+            transform: scale(1.1);
+        }
+        .video-duration {
+            position: absolute;
+            right: 16px;
+            bottom: 14px;
+            background: rgba(0, 0, 0, 0.65);
+            color: #fff;
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 14px;
+        }
+        .video-info {
+            padding: 20px 22px;
+        }
+        .video-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .video-desc {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 44px;
+            margin-bottom: 12px;
+        }
+        .video-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-lighter);
+            margin-bottom: 12px;
+        }
+        .video-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .video-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .tag,
+        .tag-video {
+            font-size: 12px;
+            padding: 3px 14px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .tag {
+            background: #EDEFF2;
+            color: var(--text-light);
+        }
+        .tag-video {
+            background: var(--primary);
+            color: #fff;
+        }
+        /* ============ 相关资讯模块 ============ */
+        #section-news {
+            background: #F7F7FC;
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            grid-auto-rows: 1fr;
+        }
+        .news-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 28px 24px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            min-height: 280px;
+        }
+        .news-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(108, 92, 231, 0.20);
+        }
+        .news-date {
+            font-size: 13px;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        .news-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 10px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 50px;
+        }
+        .news-excerpt {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.7;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 16px;
+            flex: 1;
+        }
+        .news-more {
+            margin-top: auto;
+            font-size: 14px;
+            color: var(--text-lighter);
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .news-more:hover {
+            color: var(--primary);
+        }
+        /* ============ FAQ模块 ============ */
+        #section-faq {
+            background: var(--bg);
+        }
+        .faq-list {
+            max-width: 860px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: var(--transition);
+        }
+        .faq-item:hover {
+            border-color: rgba(108, 92, 231, 0.20);
+            box-shadow: var(--shadow-lg);
+        }
+        .faq-question {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .faq-question i {
+            color: var(--primary);
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .faq-question .faq-q-text {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            flex: 1;
+            line-height: 1.5;
+        }
+        .faq-toggle {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .faq-toggle::before,
+        .faq-toggle::after {
+            content: '';
+            position: absolute;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+        .faq-toggle::before {
+            width: 100%;
+            height: 2px;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+        .faq-toggle::after {
+            width: 2px;
+            height: 100%;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+        }
+        .faq-item.active .faq-toggle::after {
+            transform: translateX(-50%) scaleY(0);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            padding: 0 24px;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 600px;
+            padding: 0 24px 20px;
+        }
+        .faq-answer ol {
+            list-style: decimal;
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .faq-answer li {
+            font-size: 15px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        /* ============ 评论留言模块 ============ */
+        #section-comment {
+            background: #F7F7FC;
+            padding: 80px 0;
+        }
+        .comment-wrapper {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            padding: 40px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+        .comment-layout {
+            display: flex;
+            gap: 40px;
+        }
+        .comment-form-area {
+            flex: 0 0 360px;
+        }
+        .comment-form-inner {
+            background: #F7F7FC;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            position: sticky;
+            top: 90px;
+        }
+        .comment-form-inner input,
+        .comment-form-inner textarea {
+            width: 100%;
+            border: 1px solid #E8E8EE;
+            border-radius: 16px;
+            padding: 14px 16px;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+            background: #fff;
+            color: var(--text);
+            transition: var(--transition);
+            margin-bottom: 16px;
+        }
+        .comment-form-inner input:focus,
+        .comment-form-inner textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.10);
+        }
+        .comment-form-inner textarea {
+            height: 130px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+        .comment-submit {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        .comment-submit:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.30);
+        }
+        .comment-list-area {
+            flex: 1;
+            min-width: 0;
+        }
+        .comment-list {
+            max-height: 560px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        .comment-list::-webkit-scrollbar {
+            width: 5px;
+        }
+        .comment-list::-webkit-scrollbar-thumb {
+            background: #D6D6E0;
+            border-radius: 4px;
+        }
+        .comment-card {
+            background: #fff;
+            border-radius: var(--radius-lg);
+            padding: 18px 20px;
+            margin-bottom: 14px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        .avatar-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .comment-user {
+            font-size: 14px;
+            font-weight: 600;
+            flex: 1;
+        }
+        .comment-time {
+            font-size: 12px;
+            color: var(--text-lighter);
+        }
+        .comment-tag-row {
+            margin-bottom: 8px;
+        }
+        .comment-tag-row .mini-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            background: #F0F1F6;
+            color: var(--text-light);
+            padding: 2px 10px;
+            border-radius: 12px;
+        }
+        .comment-text {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+        .comment-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-lighter);
+        }
+        .comment-actions {
+            display: flex;
+            gap: 14px;
+        }
+        .comment-actions span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .comment-actions span:hover {
+            color: var(--primary);
+        }
+        .load-more-hint {
+            text-align: center;
+            padding: 16px 0 0;
+            font-size: 13px;
+            color: var(--text-lighter);
+        }
+        .load-more-hint i {
+            font-size: 16px;
+            animation: bounce-down 2s ease-in-out infinite;
+        }
+        @keyframes bounce-down {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(4px);
+            }
+        }
+        /* ============ 页脚 ============ */
+        .site-footer {
+            background: #1E1B2E;
+            color: rgba(255, 255, 255, 0.70);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .site-footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+        .site-footer .footer-links a {
+            color: rgba(255, 255, 255, 0.65);
+            transition: var(--transition);
+        }
+        .site-footer .footer-links a:hover {
+            color: #fff;
+        }
+        .site-footer .disclaimer {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.40);
+            padding: 0 20px;
+        }
+        /* ============ 响应式适配 ============ */
+        @media (max-width: 992px) {
+            .banner-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+                padding-top: 80px;
+            }
+            .banner-left {
+                align-items: center;
+            }
+            .banner-desc {
+                max-width: 90%;
+            }
+            .banner-right {
+                width: 100%;
+            }
+            .computer-window {
+                max-width: 380px;
+            }
+            .advantage-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .comment-layout {
+                flex-direction: column;
+            }
+            .comment-form-area {
+                flex: 1;
+            }
+            .nav-menu a {
+                display: none;
+            }
+        }
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+            .section-header h2 {
+                font-size: 28px;
+            }
+            .banner {
+                height: auto;
+                min-height: 700px;
+                padding-top: 90px;
+            }
+            .banner h1 {
+                font-size: 32px;
+            }
+            .advantage-grid,
+            .video-grid,
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            .comment-wrapper {
+                padding: 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            .banner-btns {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+            }
+            .btn-main,
+            .btn-ghost {
+                width: 80%;
+                justify-content: center;
+            }
+            .computer-body {
+                flex-direction: column;
+                min-height: 340px;
+            }
+            .computer-right {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+        }
+        /* ============ 淡入动画 ============ */
+        .fade-in-animated {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-in-animated.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- 滚动进度条 -->
+    <div class="progress-bar" id="progressBar"></div>
+    <!-- ==================== 固定导航栏 ==================== -->
+    <nav class="site-nav" id="siteNav">
+        <div class="nav-inner">
+            <div class="nav-logo">
+                <div class="nav-logo-icon">
+                    <svg viewBox="0 0 24 24" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 5h16v14H4z"/>
+                        <path d="M8 9h8M8 13h5"/>
+                        <path d="M15 16l4-4 M15 12l4 4"/>
+                    </svg>
+                </div>
+                <a href="#" class="nav-logo-text">天天<span>漫画</span></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#section-advantage">核心优势</a></li>
+                <li><a href="#section-video">精选视频</a></li>
+                <li><a href="#section-news">相关资讯</a></li>
+                <li><a href="#section-faq">常见问题</a></li>
+                <li><a href="#section-comment">评论</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- ==================== 首屏 Banner ==================== -->
+    <header class="banner" id="banner">
+        <canvas class="banner-canvas" id="particleCanvas"></canvas>
+        <div class="banner-content container">
+            <div class="banner-left">
+                <div class="banner-tag">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                    热门漫画每日更新
+                </div>
+                <h1>求个快播网站<br><span>你的二次元阅读乐园</span></h1>
+                <p class="banner-desc">海量正版漫画资源，涵盖热血、恋爱、悬疑、科幻等多品类。智能推荐懂你的口味，让你随时随地畅享阅读乐趣！</p>
+                <div class="banner-tags">
+                    <span>热血</span><span>恋爱</span><span>悬疑</span><span>科幻</span><span>治愈</span>
+                </div>
+                <div class="banner-btns">
+                    <button class="btn-main" onclick="alert('欢迎来到求个快播网站！')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16L2 12l5-4v8zM13 16l-5-4 5-4v8zM19 16l-5-4 5-4v8z"/></svg>
+                        立即阅读
+                    </button>
+                    <button class="btn-ghost" onclick="document.getElementById('section-advantage').scrollIntoView()">了解更多</button>
+                </div>
+            </div>
+            <div class="banner-right">
+                <div class="computer-window">
+                    <div class="computer-top">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                        <span style="color:rgba(255,255,255,0.5);font-size:12px;margin-left:8px;">求个快播网站 · 阅读端</span>
+                    </div>
+                    <div class="computer-body">
+                        <div class="computer-left">
+                            <div class="app-icon">漫</div>
+                            <span class="app-name">求个快播网站</span>
+                        </div>
+                        <div class="computer-center">
+                            <div class="gauge-wrap">
+                                <div class="gauge-circle">
+                                    <svg viewBox="0 0 120 120">
+                                        <circle class="gauge-bg" cx="60" cy="60" r="50"/>
+                                        <circle class="gauge-fill" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="78.54"/>
+                                    </svg>
+                                    <div class="gauge-num">
+                                        <strong>385</strong>
+                                        <span>今日更新</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="computer-right">
+                            <div class="data-item"><div class="label">漫画总数</div><div class="value">12,000+</div></div>
+                            <div class="data-item"><div class="label">日更新</div><div class="value">385部</div></div>
+                            <div class="data-item"><div class="label">活跃用户</div><div class="value">800W+</div></div>
+                            <div class="data-item"><div class="label">好评率</div><div class="value">98.2%</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ==================== 核心优势模块 ==================== -->
+    <section class="section" id="section-advantage">
+        <div class="container">
+            <div class="section-header fade-in-animated">
+                <h2>为什么选择求个快播网站？</h2>
+                <p>六大核心优势，为你打造沉浸式阅读体验</p>
+            </div>
+            <div class="advantage-grid">
+                <div class="advantage-card fade-in-animated">
+                    <div class="advantage-icon">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h5"/></svg>
+                    </div>
+                    <h3>海量正版资源</h3>
+                    <p>超万部正版漫画独家签约，与国内外数十家出版社深度合作，热门新作同步更新。</p>
+                </div>
+                <div class="advantage-card fade-in-animated">
+                    <div class="advantage-icon">
+                        <svg viewBox="0 0 24 24"><path d="M3 8l9-5 9 5v10l-9 5-9-5V8z"/><path d="M3 8l9 5 9-5M12 13v10"/></svg>
+                    </div>
+                    <h3>高清画质引擎</h3>
+                    <p>自研画质引擎，支持4K超清阅读，双翼页漫、条漫自动切割，缩放丝滑不卡顿。</p>
+                </div>
+                <div class="advantage-card fade-in-animated">
+                    <div class="advantage-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M12 12l3-3M12 12l-3-3"/></svg>
+                    </div>
+                    <h3>智能推荐算法</h3>
+                    <p>基于百万级用户阅读行为训练推荐模型，千人千面精准推送你爱看的作品。</p>
+                </div>
+                <div class="advantage-card fade-in-animated">
+                    <div class="advantage-icon">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+                    </div>
+                    <h3>多端同步阅读</h3>
+                    <p>手机、平板、电脑三端无缝同步，阅读进度实时上传，换设备也能接着看。</p>
+                </div>
+                <div class="advantage-card fade-in-animated">
+                    <div class="advantage-icon">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>互动社区生态</h3>
+                    <p>弹幕、评论、打分、二创专区，与百万同好在线讨论剧情，追漫不再孤单。</p>
+                </div>
+                <div class="advantage-card fade-in-animated">
+                    <div class="advantage-icon">
+                        <svg viewBox="0 0 24 24"><path d="M21 12v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5M3 10V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4z"/><path d="M12 2v8M8 6l4-4 4 4"/></svg>
+                    </div>
+                    <h3>离线缓存下载</h3>
+                    <p>支持WIFI离线缓存，无网也能畅快阅读，128G手机也能安心存漫画。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==================== 精选视频模块 ==================== -->
+    <section class="section" id="section-video">
+        <div class="container">
+            <div class="section-header fade-in-animated">
+                <h2>精选<span style="color:var(--primary);">视频</span>直击</h2>
+                <p>热门PV、创作者访谈，一网打尽</p>
+            </div>
+            <div class="video-grid">
+                <div class="video-card fade-in-animated">
+                    <div class="video-thumbnail" style="background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);">
+                        <span class="cat-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2v20"/></svg>PV预告</span>
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                        <span class="video-duration">06:21</span>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">《星渊》动画化PV首曝</h3>
+                        <p class="video-desc">求个快播网站独家签约重头戏《星渊》正式宣布动画化，首支PV亮点满满，燃向战斗场面与高能剧情预告一次性放出！</p>
+                        <div class="video-meta">
+                            <span>▶ 52.3万播放</span>
+                            <span>👍 2.4万点赞</span>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag-video">热门</span>
+                            <span class="tag">动画化</span>
+                            <span class="tag">科幻</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card fade-in-animated">
+                    <div class="video-thumbnail" style="background:linear-gradient(135deg,#0f3443,#34e89e);">
+                        <span class="cat-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2v20"/></svg>创作者访谈</span>
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                        <span class="video-duration">18:45</span>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">走进《都市夜行》作者工作室</h3>
+                        <p class="video-desc">跟随镜头走近人气漫画家左轮的创作日常，听听《都市夜行》背后的灵感来源与不为人知的创作细节。</p>
+                        <div class="video-meta">
+                            <span>▶ 18.9万播放</span>
+                            <span>👍 1.2万点赞</span>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag-video">独家</span>
+                            <span class="tag">专访</span>
+                            <span class="tag">都市</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card fade-in-animated">
+                    <div class="video-thumbnail" style="background:linear-gradient(135deg,#200122,#6f0000);">
+                        <span class="cat-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2v20"/></svg>新番速递</span>
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                        <span class="video-duration">04:08</span>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">2026春季新番动画开播日历</h3>
+                        <p class="video-desc">为你整理2026年春季热门动画改编作品的播出时间表，多部原著漫画登录求个快播网站，开播前先补原作！</p>
+                        <div class="video-meta">
+                            <span>▶ 31.5万播放</span>
+                            <span>👍 1.8万点赞</span>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag-video">新番</span>
+                            <span class="tag">开播日历</span>
+                            <span class="tag">动漫</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==================== 相关资讯模块 ==================== -->
+    <section class="section" id="section-news">
+        <div class="container">
+            <div class="section-header fade-in-animated">
+                <h2>相关资讯</h2>
+                <p>每日更新漫画界最新动态</p>
+                <div class="section-line"></div>
+            </div>
+            <div class="news-grid">
+                <article class="news-card fade-in-animated">
+                    <span class="news-date">2026-04-08</span>
+                    <h3 class="news-title">求个快播网站签约《星渊》独家连载权 未来将开启多IP联动企划</h3>
+                    <p class="news-excerpt">求个快播网站正式宣布与知名漫画工作室达成战略合作，获得科幻人气作《星渊》的独家网络连载权，未来还将进行影视改编等一系列IP联动企划。</p>
+                    <a href="#" class="news-more">查看详情 →</a>
+                </article>
+                <article class="news-card fade-in-animated">
+                    <span class="news-date">2026-04-03</span>
+                    <h3 class="news-title">2026年春季漫画新作人气榜揭晓 前五名意外大洗牌</h3>
+                    <p class="news-excerpt">经过两周激烈的读者投票，2026年春季漫画新作人气榜终于尘埃落定。今年黑马频出，多部新作凭借独特剧情杀入前五，热度超乎预期。</p>
+                    <a href="#" class="news-more">查看详情 →</a>
+                </article>
+                <article class="news-card fade-in-animated">
+                    <span class="news-date">2026-03-28</span>
+                    <h3 class="news-title">求个快播网站AI推荐系统全面升级 个性化榜单准确率提升40%</h3>
+                    <p class="news-excerpt">求个快播网站于本周完成了AI推荐系统的全面升级，基于用户阅读时长、划线、点赞等细粒度行为进行深度学习建模，个性化书单推荐准确率大幅提升。</p>
+                    <a href="#" class="news-more">查看详情 →</a>
+                </article>
+            </div>
+        </div>
+    </section>
+    <!-- ==================== 常见问题 FAQ 模块 ==================== -->
+    <section class="section" id="section-faq">
+        <div class="container">
+            <div class="section-header fade-in-animated">
+                <h2>常见问题</h2>
+                <p>关于作品与漫画世界的热门问答</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item active fade-in-animated">
+                    <div class="faq-question">
+                        <i class="fa-solid fa-fire" style="color:var(--primary);"></i>
+                        <span class="faq-q-text">《海贼王》中路飞最终梦想的真相是什么？</span>
+                        <span class="faq-toggle"></span>
+                    </div>
+                    <div class="faq-answer">
+                        <ol>
+                            <li>路飞在早期剧情中与香克斯约定要成为海贼王，这是他航海的源动力。</li>
+                            <li>在和之国篇后，路飞向伙伴们透露的"真正的梦想"让包括索隆在内的所有人震惊，但草帽团对此默契十足。</li>
+                            <li>这个梦想与乔伊波伊的誓言以及空白一百年历史紧密相关，被读者认为是改写世界秩序的关键。</li>
+                            <li>路飞是尼卡果实（人人果实·幻兽种·尼卡形态）的觉醒者，尼卡是传说中的"解放战士"，承载着八百年前的意志。</li>
+                            <li>大和曾短暂与路飞接触，获知其梦想后感动落泪，足以证明这个梦想的分量之重。</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="faq-item fade-in-animated">
+                    <div class="faq-question">
+                        <i class="fa-solid fa-moon"></i>
+                        <span class="faq-q-text">《鬼灭之刃》中无惨为什么要消灭鬼杀队？</span>
+                        <span class="faq-toggle"></span>
+                    </div>
+                    <div class="faq-answer">
+                        <ol>
+                            <li>鬼杀队是唯一能有效威胁无惨的军事化组织，千年来持续猎杀他制造的下弦鬼。</li>
+                            <li>鬼杀队继承和传承了日之呼吸（后来的炎之呼吸等流派），这是唯一能真正伤害到无惨的呼吸法体系。</li>
+                            <li>无惨始终在寻找蓝色彼岸花以克服阳光弱点，而鬼杀队的不断袭扰严重阻碍了他的研究。</li>
+                            <li>鬼杀队掌握日轮刀、紫藤花毒素等专门针对鬼的武器与战术，是无惨计划中的最大变数。</li>
+                            <li>消灭鬼杀队可以彻底抹除日之呼吸的传承脉络，确保无惨成为真正的不死存在。</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="faq-item fade-in-animated">
+                    <div class="faq-question">
+                        <i class="fa-solid fa-dragon"></i>
+                        <span class="faq-q-text">《镖人》漫画中刀马的真实身份是什么？</span>
+                        <span class="faq-toggle"></span>
+                    </div>
+                    <div class="faq-answer">
+                        <ol>
+                            <li>刀马曾是隋朝骁果卫的精锐士兵，负责执行见不得光的暗杀和刺探任务。</li>
+                            <li>他因卷入某桩涉及朝廷高层秘辛的事件而被追捕，被迫远离权力中心浪迹大漠。</li>
+                            <li>刀马的家人是其命运转折的关键，父亲的死让他对朝廷彻底失望决裂。</li>
+                            <li>他随身携带的神秘孩子"小七"并非其亲生，但两人在逃亡中形成了胜似亲人的羁绊。</li>
+                            <li>漫画通过刀马的复仇与救赎之旅，勾勒出隋末乱世中底层侠客的生存哲学。</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="faq-item fade-in-animated">
+                    <div class="faq-question">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <span class="faq-q-text">《名侦探柯南》中黑衣组织的创始目的到底是什么？</span>
+                        <span class="faq-toggle"></span>
+                    </div>
+                    <div class="faq-answer">
+                        <ol>
+                            <li>黑衣组织并非普通犯罪集团，其核心是研究人类永生和基因改造的秘密社团。</li>
+                            <li>组织以酒名作为内部代号，形成严格层级，核心成员遍布全球政界、商界、学术界。</li>
+                            <li>APTX4869最初是组织研发的"未必会死人"的神秘药物，与细胞程序性死亡研究有关。</li>
+                            <li>组织与日本财阀及多名政府高层有密切利益输送，甚至能影响国家政策走向。</li>
+                            <li>红黑对决的本质是工藤优作与组织的策略博弈，而组织的起源可能涉及更古老的秘密。</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="faq-item fade-in-animated">
+                    <div class="faq-question">
+                        <i class="fa-solid fa-ghost"></i>
+                        <span class="faq-q-text">《咒术回战》中五条悟被封印的真相是什么？</span>
+                        <span class="faq-toggle"></span>
+                    </div>
+                    <div class="faq-answer">
+                        <ol>
+                            <li>涩谷事变中，羂索（伪装成夏油杰）利用狱门疆将五条悟封印，夺取了最强的战力。</li>
+                            <li>封印行动筹备了十年之久，包括获取狱门疆、设计引五条悟入局、制造混乱场面等多重布局。</li>
+                            <li>狱门疆是特级咒具，只有在目标进入其有效半径内才能发动仪式，因此需要故意放走普通人让五条悟分心。</li>
+                            <li>五条悟因保护学生和普通人的本能而被抓住了0.1秒的空隙，最终被成功封印。</li>
+                            <li>五条悟的封印直接导致咒术界战力失衡，咒灵势力趁机抬头，剧情进入全面冲突阶段。</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="faq-item fade-in-animated">
+                    <div class="faq-question">
+                        <i class="fa-solid fa-yin-yang"></i>
+                        <span class="faq-q-text">《封神演义》中哪吒的莲花化身究竟有何玄机？</span>
+                        <span class="faq-toggle"></span>
+                    </div>
+                    <div class="faq-answer">
+                        <ol>
+                            <li>哪吒割肉还父、割骨还母后，师父太乙真人用莲花莲叶为他重塑真身，从此脱离血肉凡胎。</li>
+                            <li>莲花化身是灵宝级的"人造仙体"，天然免疫绝大多数针对血肉之躯的魂魄类法术。</li>
+                            <li>化身保留了哪吒三头八臂的神通，并且因材质纯净，灵气运转效率远超普通修士。</li>
+                            <li>莲花在中国文化中象征"出淤泥而不染"，与哪吒虽历劫而不改锋芒的本性相呼应。</li>
+                            <li>这一设定极大影响了后世仙侠演绎中"重生塑体"的叙事模板，成为经典神话母题。</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==================== 评论留言模块 ==================== -->
+    <section class="section" id="section-comment">
+        <div class="container">
+            <div class="section-header fade-in-animated">
+                <h2>读者心声</h2>
+                <p>来看看大家怎么说吧</p>
+                <div class="section-line"></div>
+            </div>
+            <div class="comment-wrapper fade-in-animated">
+                <div class="comment-layout">
+                    <!-- 左侧表单 -->
+                    <div class="comment-form-area">
+                        <div class="comment-form-inner">
+                            <input type="text" placeholder="你的昵称" maxlength="16">
+                            <textarea placeholder="写下你对本站剧集、功能的看法与建议..."></textarea>
+                            <button class="comment-submit" onclick="alert('留言发布成功！')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                                发布留言
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 右侧评论列表 -->
+                    <div class="comment-list-area">
+                        <div class="comment-list" id="commentList">
+                            <!-- JS动态渲染 -->
+                        </div>
+                        <div class="load-more-hint">向下滑动查看更多留言 <i class="fa-solid fa-chevron-down"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==================== 页脚 ==================== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">联系方式</a>
+                <a href="#">版权声明</a>
+                <a href="#">隐私政策</a>
+            </div>
+            <p>© 2026 求个快播网站 (tiantianmanhua.com) 版权所有 · 工信部备案号：XXXXXXXXXX号</p>
+            <p class="disclaimer">免责声明：本站所有漫画资源均来自网络合法授权渠道，仅供读者阅读参考，版权归原版权方所有。如有侵犯您的权益，请联系我们协商处理。</p>
+        </div>
+    </footer>
+    <!-- ==================== 结构化数据 SEO ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "《海贼王》中路飞最终梦想的真相是什么？",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "路飞与香克斯约定成为海贼王；和之国篇后透露的\"真正的梦想\"震惊伙伴；与乔伊波伊和空白一百年历史相关；他是尼卡果实觉醒者；大和获知其梦想后感动落泪。"
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "《鬼灭之刃》中无惨为什么要消灭鬼杀队？",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "鬼杀队是唯一能威胁无惨的组织；传承日之呼吸体系；阻碍他寻找蓝色彼岸花；掌握日轮刀和紫藤花毒素；消灭鬼杀队可抹除日之呼吸传承。"
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "《镖人》漫画中刀马的真实身份是什么？",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "刀马曾是隋朝骁果卫精锐士兵；因卷入朝廷秘辛被追杀；家人被害导致彻底决裂；小七并非其亲生；经历展现隋末乱世侠客生存哲学。"
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "《名侦探柯南》中黑衣组织的创始目的到底是什么？",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "研究人类永生和基因改造的秘密社团；以酒名为代号渗透各界；APTX4869与细胞死亡研究相关；与日本财阀政坛深度绑定；起源可能涉及更古老秘密。"
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "《咒术回战》中五条悟被封印的真相是什么？",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "羂索利用狱门疆在涩谷事变中封印五条悟；筹划十年之久；利用五条悟保护学生的空隙发动；封印导致咒术界战力失衡。"
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "《封神演义》中哪吒的莲花化身究竟有何玄机？",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "太乙真人用莲花莲叶重塑；免疫魂魄类法术；保留三头八臂神通；象征出淤泥而不染；影响后世重生叙事模板。"
+                        }
+                    }
+                ]
+            },
+            {
+                "@type": "VideoObject",
+                "name": "《星渊》动画化PV首曝",
+                "description": "求个快播网站独家签约重头戏《星渊》正式宣布动画化，首支PV亮点满满。",
+                "thumbnailUrl": "https://tiantianmanhua.com/thumbnails/xingyuan-pv.jpg",
+                "uploadDate": "2026-04-06",
+                "duration": "PT6M21S"
+            },
+            {
+                "@type": "Article",
+                "headline": "求个快播网站签约《星渊》独家连载权 未来将开启多IP联动企划",
+                "author": {
+                    "@type": "Organization",
+                    "name": "求个快播网站编辑部"
+                },
+                "datePublished": "2026-04-08",
+                "dateModified": "2026-04-08"
+            }
+        ]
+    }
+    </script>
+    <!-- ==================== 页脚业务脚本-评论数据与生成 ==================== -->
+    <script type="text/javascript">
+        // 滚动进度条
+        window.addEventListener('scroll', function() {
+            const docEl = document.documentElement;
+            const scrollTop = docEl.scrollTop || window.pageYOffset;
+            const winHeight = docEl.clientHeight;
+            const docHeight = docEl.scrollHeight - winHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        });
+        // Banner粒子效果
+        (function() {
+            const canvas = document.getElementById('particleCanvas');
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = canvas.offsetWidth;
+            let height = canvas.height = canvas.offsetHeight;
+            const particles = [];
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.6;
+                    this.vy = (Math.random() - 0.5) * 0.6;
+                    this.r = Math.random() * 2.5 + 0.5;
+                    this.alpha = Math.random() * 0.5 + 0.2;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
+                    ctx.fill();
+                }
+            }
+            // 初始化粒子
+            for (let i = 0; i < 60; i++) {
+                particles.push(new Particle());
+            }
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                // 粒子连线
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(255,255,255,${0.15 * (1 - dist / 120)})`;
+                            ctx.lineWidth = 0.6;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            // 监听窗口尺寸变化
+            window.addEventListener('resize', function() {
+                width = canvas.width = canvas.offsetWidth;
+                height = canvas.height = canvas.offsetHeight;
+            });
+            animate();
+        })();
+        // 环表动画
+        (function() {
+            const fills = document.querySelectorAll('.gauge-fill');
+            if (fills.length) {
+                fills.forEach(f => {
+                    f.style.transition = 'stroke-dashoffset 1.5s ease';
+                    f.style.strokeDashoffset = '120';
+                });
+                setTimeout(() => {
+                    fills.forEach(f => {
+                        f.style.strokeDashoffset = '78.54';
+                    });
+                }, 200);
+            }
+        })();
+        // 淡入滚动动画
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.fade-in-animated').forEach(el => {
+            observer.observe(el);
+        });
+        // FAQ手风琴交互
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', function() {
+                const parent = this.parentElement;
+                const isActive = parent.classList.contains('active');
+                // 折叠所有
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                // 如果当前不是激活状态，则展开
+                if (!isActive) {
+                    parent.classList.add('active');
+                }
+            });
+        });
+        // ==================== 评论生成数据 ====================
+        const commentDB = [{
+            user: '追漫小冬瓜',
+            avatar: '#6C5CE7',
+            tag: '热议',
+            icon: '🔥',
+            text: '求个快播网站的新番同步速度真快！前晚上日本首播，今天就有高清熟肉了，这效率服气！',
+            likes: 356,
+            replies: 24
+        }, {
+            user: '月色如洗',
+            avatar: '#FFA502',
+            tag: '点评',
+            icon: '💬',
+            text: '画质是真的细腻，用平板看《星渊》的跨页大场面，线条细节全都清楚，太享受了！',
+            likes: 289,
+            replies: 16
+        }, {
+            user: '二刺猿老咸鱼',
+            avatar: '#2ED573',
+            tag: '催更',
+            icon: '⏳',
+            text: '《都市夜行》什么时候能加更啊！卡在关键剧情受不了，求求了！',
+            likes: 512,
+            replies: 38
+        }, {
+            user: '奶茶加点冰',
+            avatar: '#EB4D4B',
+            tag: '好评',
+            icon: '👍',
+            text: '评论区氛围很好，大家都在认真分析剧情，比外面动不动就吵架的圈子舒服多了。',
+            likes: 198,
+            replies: 11
+        }, {
+            user: '白衬衫少年',
+            avatar: '#576574',
+            tag: '建议',
+            icon: '📢',
+            text: '希望加一个夜间阅读模式的快捷键，晚上被窝里看漫画还是太亮了。',
+            likes: 304,
+            replies: 29
+        }, {
+            user: '墨染青衫',
+            avatar: '#8854d0',
+            tag: '理性',
+            icon: '🧠',
+            text: '仔细对比过几部漫画的台词翻译，感觉比前两年进步很大，现在好多梗本地化得挺自然。',
+            likes: 167,
+            replies: 14
+        }, {
+            user: '不吃西红柿',
+            avatar: '#34ace0',
+            tag: '热门',
+            icon: '🔥',
+            text: '《星渊》的评论区破万了吧！这全民追漫的场面好久没见到了。',
+            likes: 423,
+            replies: 31
+        }, {
+            user: '夜雨声烦',
+            avatar: '#ff6348',
+            tag: '观点',
+            icon: '💡',
+            text: '说真的，求个快播网站的排版是我见过最适合手机阅读的，分镜过渡自然，完全不会有卡片感。',
+            likes: 276,
+            replies: 13
+        }, {
+            user: '布丁蛋糕卷',
+            avatar: '#fc5c65',
+            tag: '好评',
+            icon: '💖',
+            text: '用了快两年了，充值后画质提升明显，关键是会员提前看几话这个机制太香了！',
+            likes: 345,
+            replies: 22
+        }, {
+            user: '超级赛亚晨',
+            avatar: '#fd9644',
+            tag: '讨论',
+            icon: '💬',
+            text: '有人发现这周更新的《镖人》里藏了一个前几卷的伏笔回收吗？编剧真的太细了！',
+            likes: 233,
+            replies: 48
+        }, {
+            user: '梨花先雪',
+            avatar: '#45aaf2',
+            tag: '好评',
+            icon: '🌸',
+            text: '第一次在漫画平台感受到推荐真的懂我，最近推的几部冷门虐心短篇全都符合我的口味！',
+            likes: 188,
+            replies: 9
+        }, {
+            user: '小鱼干爱好者',
+            avatar: '#a55eea',
+            tag: '催更',
+            icon: '⏳',
+            text: '《妖狐X食堂》的第二季什么时候出！先把漫画囤起来，坐等动画化！',
+            likes: 142,
+            replies: 17
+        }, {
+            user: '北岛的信',
+            avatar: '#2bcbba',
+            tag: '理性',
+            icon: '🧐',
+            text: '说实话，求个快播网站的收费价格在同类平台里算良心的了，而且经常有白嫖券活动。',
+            likes: 201,
+            replies: 12
+        }, {
+            user: '今天也要加油鸭',
+            avatar: '#f7b731',
+            tag: '观点',
+            icon: '🌟',
+            text: '建议出个"已完结"分类筛选器，像我这种喜欢一口气看完的强迫症很需要这个！',
+            likes: 278,
+            replies: 35
+        }, {
+            user: '摸鱼先锋',
+            avatar: '#eb3b5a',
+            tag: '理性',
+            icon: '🧠',
+            text: '看到有人吐槽全网漫画平台，但求个快播网站的审核和评论区管理做得确实不错，干净多了。',
+            likes: 154,
+            replies: 8
+        }, {
+            user: '给你一记摸头杀',
+            avatar: '#4b7bec',
+            tag: '热门',
+            icon: '🔥',
+            text: '我是因为《进击的巨人》完结后找不到代餐才来求个快播网站的，结果发现了好多宝藏！',
+            likes: 389,
+            replies: 41
+        }, {
+            user: '芝士奶盖醉',
+            avatar: '#fc427b',
+            tag: '好评',
+            icon: '💖',
+            text: '客服响应速度值得点赞，上次反馈一个图片加载问题，半小时就处理好了。',
+            likes: 165,
+            replies: 6
+        }, {
+            user: '森林里的小鹿',
+            avatar: '#7bed9f',
+            tag: '点评',
+            icon: '💬',
+            text: '《蔷薇后花园》这部作品的画面演出效果真的震撼，感谢求个快播网站买下版权！',
+            likes: 240,
+            replies: 19
+        }, {
+            user: '蒸汽波恋人',
+            avatar: '#70a1ff',
+            tag: '讨论',
+            icon: '🧪',
+            text: '国产漫画近几年的上限真的被拉高了，尤其《镖人》这种作品居然能在平台免费看前两卷，良心！',
+            likes: 317,
+            replies: 27
+        }, {
+            user: '不喝奶茶喝冰美式',
+            avatar: '#aaa69d',
+            tag: '建议',
+            icon: '📢',
+            text: '希望给漫画加一个"回忆收藏"功能，很多经典剧情想回看但每次都翻半天。',
+            likes: 122,
+            replies: 21
+        }, {
+            user: '天青色等烟雨',
+            avatar: '#b33939',
+            tag: '好评',
+            icon: '🌸',
+            text: '求个快播网站的弹幕系统做得挺有节奏感的，不会挡到画面还能看到各种精彩吐槽！',
+            likes: 209,
+            replies: 14
+        }, {
+            user: '清风不识字',
+            avatar: '#cd6133',
+            tag: '理性',
+            icon: '🧐',
+            text: '对比了国内几个主流漫画App，求个快播网站的耗电量是最低的，优化确实到位。',
+            likes: 143,
+            replies: 7
+        }, {
+            user: '星河长明',
+            avatar: '#474787',
+            tag: '热议',
+            icon: '🔥',
+            text: '《咒术回战》的剧情走向目前争议好大，但求个快播网站评论区大家的分析都很有意思！',
+            likes: 278,
+            replies: 52
+        }, {
+            user: '一只咕咕精',
+            avatar: '#cc8e35',
+            tag: '催更',
+            icon: '⏳',
+            text: '我愿称求个快播网站为"脱更监测站"，这更新的及时程度真的绝了！',
+            likes: 185,
+            replies: 10
+        }, {
+            user: '半糖去冰',
+            avatar: '#f8a5c2',
+            tag: '好评',
+            icon: '💖',
+            text: '追了《海贼王》十几年，第一次觉得在手机上看漫画体验能这么好，求个快播网站做到了。',
+            likes: 432,
+            replies: 25
+        }, {
+            user: '长安某',
+            avatar: '#1e3799',
+            tag: '知识',
+            icon: '📚',
+            text: '求个快播网站每一话后面的"编辑推荐"栏目真的用心，能学到好多创作背景知识。',
+            likes: 221,
+            replies: 9
+        }, {
+            user: '松子落棋盘',
+            avatar: '#4a69bd',
+            tag: '讨论',
+            icon: '💬',
+            text: '大家觉不觉得《星渊》的BGM版权应该拿下出个OST？配合画面太带感了！',
+            likes: 176,
+            replies: 33
+        }, {
+            user: '山月不知心底事',
+            avatar: '#e58e26',
+            tag: '好评',
+            icon: '👍',
+            text: '离线缓存功能救我狗命，上周出差高铁上没信号，全靠缓存看完了两部漫画！',
+            likes: 195,
+            replies: 8
+        }, {
+            user: '深海菠萝',
+            avatar: '#78e08f',
+            tag: '观点',
+            icon: '💡',
+            text: '说实话，像求个快播网站这样保持多端进度实时同步的平台真不多，体验无缝衔接。',
+            likes: 263,
+            replies: 15
+        }, {
+            user: '墨色半夏',
+            avatar: '#cf6a87',
+            tag: '催更',
+            icon: '⏳',
+            text: '《名侦探柯南》主线进展太慢了！希望在求个快播网站能看到更多主线同人科普！',
+            likes: 158,
+            replies: 20
+        }, {
+            user: '一只小笼包',
+            avatar: '#e15f41',
+            tag: '好评',
+            icon: '💖',
+            text: '自从用了求个快播网站，我的腾讯漫画会员已经自动续费了两年，皮肤做得是真的好。',
+            likes: 289,
+            replies: 12
+        }, {
+            user: '慕斯不爱甜',
+            avatar: '#5d62b5',
+            tag: '理性',
+            icon: '🧐',
+            text: '看到很多人说求个快播网站资源少，但热门作品其实覆盖了市面上80%，真该仔细看看。',
+            likes: 194,
+            replies: 18
+        }, {
+            user: '哒哒的马蹄',
+            avatar: '#f47067',
+            tag: '讨论',
+            icon: '📚',
+            text: '谁能聊聊《镖人》里"小七"的身世伏笔？总觉得没这么简单！',
+            likes: 312,
+            replies: 44
+        }, {
+            user: '北巷长歌',
+            avatar: '#82ccdd',
+            tag: '好评',
+            icon: '👍',
+            text: '从阅读画质到操作流畅度，求个快播网站都是目前第一梯队，虽然偶尔有小bug但更新很快。',
+            likes: 150,
+            replies: 5
+        }, {
+            user: '吃瓜群众甲乙丙',
+            avatar: '#b8e994',
+            tag: '热门',
+            icon: '🔥',
+            text: '听说《封神演义》动画电影要出了？求个快播网站直接上了漫画版「封神」，蹭热度的速度一流哈哈哈！',
+            likes: 267,
+            replies: 23
+        }, {
+            user: '像素级游民',
+            avatar: '#9b59b6',
+            tag: '建议',
+            icon: '📢',
+            text: '希望增加一个"按标签搜索"的进阶筛选，比如"已完结+玄幻+大男主"，这样找漫画更方便。',
+            likes: 234,
+            replies: 19
+        }, {
+            user: '风居住的街道',
+            avatar: '#e84393',
+            tag: '好评',
+            icon: '🌸',
+            text: '《鬼灭之刃》的漫画补完计划全靠求个快播网站，现在二刷发现了好多之前没注意的伏笔。',
+            likes: 203,
+            replies: 11
+        }, {
+            user: '不落哟',
+            avatar: '#00b894',
+            tag: '催更',
+            icon: '⏳',
+            text: '作为《梦游人》漫画的脑残粉，实名表白求个快播网站对这部冷门佳作的推荐力度！',
+            likes: 145,
+            replies: 7
+        }, {
+            user: '一叶知秋',
+            avatar: '#2d3436',
+            tag: '理性',
+            icon: '🧠',
+            text: '求个快播网站的会员体系比较清楚，先给你免费券体验，觉得好再付费，这种模式挺有诚意。',
+            likes: 228,
+            replies: 16
+        }, {
+            user: '橘猫不加糖',
+            avatar: '#fdcb6e',
+            tag: '讨论',
+            icon: '💬',
+            text: '推理漫画迷集合！强烈推荐求个快播网站独家的《迷雾公园》，反转再反转真的过瘾！',
+            likes: 279,
+            replies: 26
+        }, {
+            user: '南巷旧人',
+            avatar: '#a29bfe',
+            tag: '好评',
+            icon: '💖',
+            text: '下载求个快播网站第一天就白嫖了10张阅读券，直接看完一部短篇，香疯了！',
+            likes: 336,
+            replies: 29
+        }, {
+            user: '云端漫步者',
+            avatar: '#55efc4',
+            tag: '建议',
+            icon: '📢',
+            text: '希望引入更多国漫作品，特别是《镖人》这种有深度的，别老盯着日漫引进！',
+            likes: 189,
+            replies: 21
+        }, {
+            user: '酒酿小圆子',
+            avatar: '#fab1a0',
+            tag: '热门',
+            icon: '🔥',
+            text: '有没有人看《星渊》最新话哭了的？编剧发刀子真的不手下留情啊！',
+            likes: 298,
+            replies: 37
+        }, {
+            user: '一只山竹',
+            avatar: '#636e72',
+            tag: '理性',
+            icon: '🧐',
+            text: '发现求个快播网站的章节封面设计很用心，每一话都有独立封面图，值得收藏。',
+            likes: 134,
+            replies: 6
+        }, {
+            user: '柠檬树下你和我',
+            avatar: '#d63031',
+            tag: '点评',
+            icon: '💬',
+            text: '《海贼王》的艾斯回归同人篇居然在求个快播网站能看到，社区创作者们的脑洞真的强！',
+            likes: 245,
+            replies: 28
+        }, {
+            user: '萤火之森',
+            avatar: '#00b894',
+            tag: '好评',
+            icon: '✨',
+            text: '认真夸一下求个快播网站的客服，昨晚反馈了一处图片显示问题，今天早上就修好了！',
+            likes: 162,
+            replies: 4
+        }, {
+            user: '曲奇不修勾',
+            avatar: '#dfe6e9',
+            tag: '催更',
+            icon: '⏳',
+            text: '求求个快播网站续约《魔法光源》！这么好的作品不能没有家啊！！',
+            likes: 211,
+            replies: 13
+        }, {
+            user: '安静的阿宅',
+            avatar: '#74b9ff',
+            tag: '讨论',
+            icon: '📚',
+            text: '大家推荐几部求个快播网站上被低估的冷门作品吧？想趁周末充实一下！',
+            likes: 178,
+            replies: 39
+        }, {
+            user: '木叶之魂',
+            avatar: '#e5e8ee',
+            tag: '好评',
+            icon: '👍',
+            text: '求个快播网站的低内存模式做得太聪明了，老手机也能流畅翻页，赞！',
+            likes: 156,
+            replies: 8
+        }, {
+            user: '夏目家的猫',
+            avatar: '#ecf0f1',
+            tag: '观点',
+            icon: '💡',
+            text: '看连载最怕的就是断更，求个快播网站的连载稳定度在平台里排第一没得黑！',
+            likes: 192,
+            replies: 10
+        }];
+        // 渲染评论列表
+        function renderComments() {
+            const container = document.getElementById('commentList');
+            if (!container) return;
+            // 生成随机时间：近30天内
+            const now = Date.now();
+            const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+            const avatars = ['#6C5CE7', '#FFA502', '#2ED573', '#EB4D4B', '#576574', '#8854d0', '#34ace0', '#ff6348', '#fc5c65', '#fd9644', '#45aaf2', '#a55eea', '#2bcbba', '#f7b731', '#eb3b5a', '#4b7bec', '#fc427b', '#7bed9f', '#70a1ff', '#aaa69d', '#b33939', '#cd6133', '#474787', '#cc8e35', '#f8a5c2'];
+            const withTime = commentDB.map((c, index) => {
+                const t = now - Math.floor(Math.random() * thirtyDays);
+                return {
+                    ...c,
+                    time: t,
+                    avatar: avatars[index % avatars.length],
+                    likes: c.likes + Math.floor(Math.random() * 100),
+                    replies: c.replies + Math.floor(Math.random() * 20)
+                };
+            });
+            // 按时间降序
+            withTime.sort((a, b) => b.time - a.time);
+            // 格式化时间
+            function formatTime(ts) {
+                const d = new Date(ts);
+                const pad = n => n < 10 ? '0' + n : '' + n;
+                return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+            }
+            let html = '';
+            withTime.forEach(c => {
+                html += `
+                    <div class="comment-card">
+                        <div class="comment-header">
+                            <div class="avatar-circle" style="background:${c.avatar};">${c.user.charAt(0)}</div>
+                            <span class="comment-user">${c.user}</span>
+                            <span class="comment-time">${formatTime(c.time)}</span>
+                        </div>
+                        <div class="comment-tag-row">
+                            <span class="mini-tag">${c.icon} ${c.tag}</span>
+                        </div>
+                        <div class="comment-text">${c.text}</div>
+                        <div class="comment-bottom">
+                            <span class="comment-actions">
+                                <span>回复</span>
+                            </span>
+                            <span class="comment-actions">
+                                <span>👍 ${c.likes}</span>
+                                <span>💬 ${c.replies}</span>
+                            </span>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+        // 页面加载时生成评论
+        document.addEventListener('DOMContentLoaded', renderComments);
+        // 导航栏滚动效果
+        const nav = document.getElementById('siteNav');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 80) {
+                nav.style.boxShadow = '0 4px 30px rgba(0,0,0,0.10)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+    <!-- Font Awesome 图标库 -->
+    <script src="https://kit.fontawesome.com/a5f6c75f71.js" crossorigin="anonymous"></script>
+</body>
+</html>
